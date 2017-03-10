@@ -1,0 +1,11 @@
+
+public class Chapter_1_7 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DecimalFormat df = new DecimalFormat("#.####")
+		double d =Math.PI; 
+		System.out.println(d);
+	}
+
+}

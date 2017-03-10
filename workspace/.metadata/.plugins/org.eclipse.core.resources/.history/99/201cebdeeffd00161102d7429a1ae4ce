@@ -1,0 +1,100 @@
+package Howard;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class MainGame {
+
+	public static void main(String[] args) {
+
+		Random rand = new Random();
+		Scanner in = new Scanner(System.in);
+
+		String[] enemies = { "Grunt", "Goblin", "Troll", "Zombie" };
+		String[] weapons = { "Bronze Spear", "Iron Warhammer", "Steel Mace", "Diamond Sword" };
+
+		int bronze = 0;
+		int iron = 1;
+		int steel = 2;
+		int diamond = 3;
+
+		int bronzeDrop = 40; // Use <
+		int lowIronDrop = 40; // Use >
+		int highIronDrop = 70; // Use <
+		int lowSteelDrop = 70; // Use >
+		int highSteelDrop = 90; // Use <
+		int diamondDrop = 90; // Use >
+
+		int bronzeDamage = 5;
+		int ironDamage = 15;
+		int steelDamage = 25;
+		int diamondDamage = 45;
+
+		int lives = 3;
+
+		String weapon;
+
+		int weaponDropChance = 75;
+		int weaponDamage = 0;
+
+		int fireBall = 3;
+		int maxFireBall = 3;
+		int iceShard = 3;
+		int maxIceShard = 3;
+		int cheese = 3;
+		int maxCheese = 3;
+
+		
+		int maxGruntHealth = 50;
+		int maxGruntAttack = 50;
+		int maxGoblinHealth = 25;
+		int maxGoblinAttack = 75;
+		int maxTrollHealth = 80;
+		int maxTrollAttack = 25;
+		int maxZombieHealth = 75;
+		int maxZombieAttack = 60;
+
+		int playerHealth = 100;
+		int maxPlayerAttack = 50;
+		int maxPlayerHealth = 100;
+		int levelUp = 0;
+		int level1 = 25;
+		int level1P = 1;
+		int level2 = 30;
+		int level2P = 1;
+		int level3 = 35;
+		int level3P = 1;
+		int level4 = 40;
+		int level4P = 1;
+		int level5 = 45;
+		int level5P = 2;
+		int level6 = 50;
+		int level6P = 2;
+		int level7 = 50;
+		int level7P = 2;
+		int level8 = 50;
+		int level8P = 2;
+		int level9 = 100;
+		int level9P = 3;
+		int level10 = 100;
+		int level10P = 3;
+
+		int healthPotionDrop = 45;
+		int healthPotion = 5;
+		int healthPotionAmount = 25;
+		int maxHPotionAmount = 5;
+
+		int ultPotDrop = 15;
+		int ultPot = 0;
+		int ultPotAmt = 50;
+		int maxUPotionAmount = 5;
+
+		int bodyCount = 0;
+
+		boolean keeperGoin = true;
+		CombatSystem boii = new CombatSystem();
+		
+		
+	}
+
+}

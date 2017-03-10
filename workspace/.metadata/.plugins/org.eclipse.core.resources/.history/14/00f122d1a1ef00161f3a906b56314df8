@@ -1,0 +1,212 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class CombatSystem {
+
+	public static void main(String[] args) {
+
+		Random rand = new Random();
+		Scanner in = new Scanner(System.in);
+
+		String[] enemies = { "Grunt", "Goblin", "Troll", "Zombie" };
+		String[] weapons = {"Bronze", "Iron", "Steel", "Diamond"};
+		
+		int bronze = 0;
+		int iron = 1; 
+		int steel = 2;
+		int diamond = 3;
+		
+		int bronzeDrop = 40; // Use <
+		int lowIronDrop = 40; // Use >
+		int highIronDrop = 70; // Use <
+		int lowSteelDrop = 70; // Use >
+		int highSteelDrop = 90; // Use <
+ 		int diamondDrop = 90; // Use >
+ 		
+ 		int bronzeDamage = 5;
+		
+		
+		String weapon;
+		
+		int weaponDropChance = 75;
+		int weaponDamage = 0;
+		
+		int maxEnemyHealth = 75;
+		int maxEnemyAttack = 40;
+
+		int playerHealth = 100;
+		int maxPlayerAttack = 50;
+
+		int healthPotionDrop = 45;
+		int healthPotion = 5;
+		int healthPotionAmount = 25;
+
+		int ultPotDrop = 15;
+		int ultPot = 0;
+		int ultPotAmt = 50;
+		
+		int damageBoostDrop = 75;
+		int damageBoostAmount = 0;
+		
+		int bodyCount = 0;
+
+		boolean keeperGoin = true;
+		MainGame: while (keeperGoin) {
+
+			int bruh = rand.nextInt(enemies.length);
+			String enemy = enemies[bruh];
+			int enemyHealth = rand.nextInt(maxEnemyHealth);
+
+			if (bruh == 0) {
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println(enemy + " has appeared!");
+
+				while (enemyHealth > 0) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("Your Hp: " + playerHealth);
+					System.out.println(enemy + "'s Hp: " + enemyHealth);
+					System.out.println("what would you like to do?");
+					System.out.println("[1] Attack [2] Use Potion [3] Run ");
+
+					String input = in.nextLine();
+
+					if (input.equals("1")) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						
+						int playerDamage = rand.nextInt(maxPlayerAttack);
+						int totalPlayerDamage = playerDamage + weaponDamage;
+						System.out.println(weaponDamage);
+						
+						int enemyDamage = rand.nextInt(maxEnemyAttack);
+
+						enemyHealth -= totalPlayerDamage;
+						playerHealth -= enemyDamage;
+
+						System.out.println("You strike " + enemy + " for " + playerDamage + " and " + weaponDamage);
+						System.out.println("You take " + enemyDamage + " from the " + enemy);
+						
+						
+						if (playerHealth < 1) {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("The " + enemy + " has defeated you.");
+
+							break;
+						}
+
+					}
+
+					else if (input.equals("2")) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						if (healthPotion > 0) {
+							playerHealth += healthPotionAmount;
+							healthPotion--;
+
+							System.out.println("You have healed " + healthPotionAmount + " Hp");
+							System.out.println("Your have " + playerHealth + " Hp");
+							System.out.println("You have " + healthPotion + " health potions left");
+
+						}
+
+						else {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("You have no health potions left");
+
+						}
+
+					}
+
+					else if (input.equals("3")) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println("You have ran from the enemy!"
+								+ "\nYou restart the maze with full health and potions," + "\nBut you lose a life.");
+
+					}
+
+					else {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println("Sorry Wrong Input!");
+
+					}
+
+				}
+
+				if (playerHealth < 1) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("You Died2");
+					break;
+				}
+
+				if (enemyHealth < 1) {
+					bodyCount++;
+				}
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println("You defeated The " + enemy);
+				System.out.println("Your Hp: " + playerHealth);
+				System.out.println("Your body count is " + bodyCount);
+
+				if (rand.nextInt(100) < healthPotionDrop) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					healthPotion++;
+					System.out.println("The " + enemy + " dropped a health potion");
+					System.out.println("You now have " + healthPotion + " health potions");
+
+				}
+				
+				if (rand.nextInt(100) < damageBoostDrop){
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("You have gained a damage boost");
+					damageBoostAmount += 10;
+				}
+				
+				if (rand.nextInt(100) < weaponDropChance){
+					System.out.println("The " + enemy + " has dropped a weapon.");
+					int enemyWeaponDrop = rand.nextInt(100);
+					if (enemyWeaponDrop < bronzeDrop){
+						weapon = weapons[bronze];
+						System.out.println("It is a " + weapon);
+						System.out.println("What would you like to do?");
+						System.out.println("[1] Take it  [2] Leave it");
+						String input = in.nextLine();
+						
+						if(input.equals("1")){
+							System.out.println("You Take the " + weapon);
+							weaponDamage *= 0;
+							weaponDamage += bronzeDamage;
+						}
+						
+						else if(input.equals("2")){
+							System.out.println("You leave the weapon lying on the floor.");
+						}
+						
+						else{
+							System.out.println("Sorry wrong input.");
+						}
+						
+					}
+					
+					
+				}
+				
+				
+				
+
+			}
+
+			else if (bruh == 1) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+			else if (bruh == 2) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+			else if (bruh == 3) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+		}
+
+		System.out.println("Thanks for playing!");
+
+	}
+}

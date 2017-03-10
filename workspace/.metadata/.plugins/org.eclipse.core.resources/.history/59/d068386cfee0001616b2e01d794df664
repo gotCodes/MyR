@@ -1,0 +1,13 @@
+import java.text.DecimalFormat;
+
+public class Chapter_1_7 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		double d =Math.PI; 
+		d= d*1000;
+		d= d/1000;
+		System.out.println(d);
+	}
+
+}

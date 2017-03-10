@@ -1,0 +1,554 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class CombatSystem {
+
+	public static void main(String[] args) {
+
+		Random rand = new Random();
+		Scanner in = new Scanner(System.in);
+
+		String[] enemies = { "Grunt", "Goblin", "Troll", "Zombie" };
+		String[] weapons = {"Bronze", "Iron", "Steel", "Diamond"};
+
+		int bronze = 0;
+		int iron = 1; 
+		int steel = 2;
+		int diamond = 3;
+
+		int bronzeDrop = 40; // Use <
+		int lowIronDrop = 40; // Use >
+		int highIronDrop = 70; // Use <
+		int lowSteelDrop = 70; // Use >
+		int highSteelDrop = 90; // Use <
+		int diamondDrop = 90; // Use >
+
+		int bronzeDamage = 5;
+		int ironDamage = 15;
+		int steelDamage = 25;
+		int diamondDamage = 45;
+
+		int lives = 3;
+
+
+		String weapon;
+
+		int weaponDropChance = 75;
+		int weaponDamage = 0;
+
+		int fireBall = 3;
+		int iceShard = 3;
+		int cheese = 3;
+		
+		
+		int maxEnemyHealth = 75;
+		int maxEnemyAttack = 40;
+
+		int playerHealth = 100;
+		int maxPlayerAttack = 50;
+		int maxPlayerHealth = 100;
+		int levelUp = 0;
+		int level1 = 25;
+		int level1P = 1;
+		int level2 = 30;
+		int level2P = 1;
+		int level3 = 35;
+		int level3P = 1;
+		int level4 = 40;
+		int level4P = 1;
+		int level5 = 45;
+		int level5P = 2;
+		int level6 = 50;
+		int level6P = 2;
+		int level7 = 50;
+		int level7P = 2;
+		int level8 = 50;
+		int level8P = 2;
+		int level9 = 100;
+		int level9P = 3;
+		int level10 = 100;
+		int level10P = 3;
+
+		int healthPotionDrop = 45;
+		int healthPotion = 5;
+		int healthPotionAmount = 25;
+		int maxHPotionAmount = 5;
+
+		int ultPotDrop = 15;
+		int ultPot = 0;
+		int ultPotAmt = 50;
+		int maxUPotionAmount = 5;
+
+		int bodyCount = 0;
+
+		boolean keeperGoin = true;
+		MainGame: while (keeperGoin) {
+
+			int bruh = rand.nextInt(enemies.length);
+			String enemy = enemies[bruh];
+			int enemyHealth = rand.nextInt(maxEnemyHealth);
+
+			if (bruh == 0) {
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println(enemy + " has appeared!");
+
+				while (enemyHealth > 0) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("Your Hp: " + playerHealth);
+					System.out.println(enemy + "'s Hp: " + enemyHealth);
+					System.out.println("what would you like to do?");
+					System.out.println("[1] Attack [2] Use Potion [3] Use Ultimate Potion [4] Run ");
+
+					String input = in.nextLine();
+
+					if (input.equals("1")) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+						int playerDamage = rand.nextInt(maxPlayerAttack);
+						int totalPlayerDamage = playerDamage + weaponDamage;
+						System.out.println(weaponDamage);
+
+						int enemyDamage = rand.nextInt(maxEnemyAttack);
+
+						enemyHealth -= totalPlayerDamage;
+						playerHealth -= enemyDamage;
+
+						System.out.println("You strike " + enemy + " for " + playerDamage + " and " + weaponDamage);
+						System.out.println("You take " + enemyDamage + " from the " + enemy);
+
+
+						if (playerHealth < 1) {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("The " + enemy + " has defeated you.");
+
+							break;
+						}
+
+					}
+
+					else if (input.equals("2")) {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						if (healthPotion > 0) {
+							
+							playerHealth += healthPotionAmount;
+							healthPotion--;
+
+							System.out.println("You have healed " + healthPotionAmount + " Hp");
+							System.out.println("Your have " + playerHealth + " Hp");
+							System.out.println("You have " + healthPotion + " health potions left");
+							
+							if(playerHealth > maxPlayerHealth){
+								System.out.println("You have too much health!");
+								playerHealth = maxPlayerHealth;
+								System.out.println("You now have " + playerHealth + " health" );
+							}
+
+						}
+
+						else {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("You have no health potions left");
+
+						}
+
+					}
+
+					else if (input.equals("3")) {
+						if (ultPot > 0) {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							playerHealth += ultPotAmt;
+							ultPot--;
+
+							System.out.println("You have healed " + ultPotAmt + " Hp");
+							System.out.println("Your have " + playerHealth + " Hp");
+							System.out.println("You have " + ultPot + " ultimate potions left");
+							
+							if(playerHealth > maxPlayerHealth){
+								System.out.println("You have too much health!");
+								playerHealth = maxPlayerHealth;
+								System.out.println("You now have " + playerHealth + " health" );
+							}
+
+						}
+
+						else {
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("You have no ultimate potions left");
+
+						}
+
+					}
+
+					else if (input.equals("4")) {
+						if(lives > 0){
+							System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+							System.out.println("You have ran from the enemy!"
+									+ "\nYou restart the maze with full health and potions," + "\nBut you lose a life.");
+							lives --;
+							healthPotion = 5;
+							playerHealth = maxPlayerHealth;
+							continue MainGame;
+						}
+						else{
+							System.out.println("You can not run you are out of lives!");
+						}
+
+					}
+					
+					else if (input.equals("69")){
+						System.out.println("Which spell would you like to use?");
+						System.out.println("[1] Fireball [2] Ice Shard [3] Cheese???");
+						String input1 = in.nextLine();
+						
+						if (input1.equals("1")){
+							if(fireBall > 0){ 
+							System.out.println("You hurl a fireball at the " + enemy);
+							System.out.println("The " + enemy + " is burnt to a crisp");
+							enemyHealth = 0;
+							}
+							else{
+								System.out.println("You Have no more Fireballs");
+							}
+							
+						}
+						
+						else if (input1.equals("2")){
+							if(fireBall > 0){
+							System.out.println("You hurl a ice shard at the " + enemy);
+							System.out.println("The " + enemy + " is frozen solid");
+							enemyHealth = 0;
+							}
+							else{
+								System.out.println("You Have no more Ice Shards");
+							}
+						}
+						
+						else if (input1.equals("3")){
+							if(fireBall > 0){
+							System.out.println("CHEEESSE FOR EVERYONE!!! AHAHAHA!!!!");
+							System.out.println("The " + enemy + " is pummeled to death by giant cheese meteors");
+							enemyHealth = 0;
+							}
+							else{
+								System.out.println("You Have no more CHEEEESSSEEE");
+							}
+							
+						}
+						
+						else{
+							System.out.println("Sorry wrong input");
+						}
+						
+					}
+						
+
+					else {
+						System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+						System.out.println("Sorry Wrong Input!");
+
+					}
+
+				}
+
+				if (playerHealth < 1) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					System.out.println("You Died2");
+					break;
+				}
+
+				if (enemyHealth < 1) {
+					bodyCount++;
+				}
+				System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.out.println("You defeated The " + enemy);
+				System.out.println("Your Hp: " + playerHealth);
+				System.out.println("Your body count is " + bodyCount);
+				
+				if (bodyCount == 10){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level1;
+					maxHPotionAmount += level1P;
+					System.out.println("You Gain " + level1 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 20){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level2;
+					maxHPotionAmount += level2P;
+					System.out.println("You Gain " + level2 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 30){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level3;
+					maxHPotionAmount += level3P;
+					System.out.println("You Gain " + level3 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 40){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level4;
+					maxHPotionAmount += level4P;
+					System.out.println("You Gain " + level4 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 50){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level5;
+					maxHPotionAmount += level5P;
+					System.out.println("You Gain " + level5 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 65){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level6;
+					maxHPotionAmount += level6P;
+					System.out.println("You Gain " + level6 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 80){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level7;
+					maxHPotionAmount += level7P;
+					System.out.println("You Gain " + level7 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 95){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level8;
+					maxHPotionAmount += level8P;
+					System.out.println("You Gain " + level8 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 110){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level9;
+					maxHPotionAmount += level9P;
+					System.out.println("You Gain " + level9 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+				
+				if (bodyCount == 125){
+					levelUp ++;
+					System.out.println("You Leveled Up, you are now level " + levelUp);
+					maxPlayerHealth += level10;
+					maxHPotionAmount += level10P;
+					System.out.println("You Gain " + level10 + " more health");
+					System.out.println("You gain full health and potions");
+					
+					playerHealth = maxPlayerHealth;
+					healthPotion = maxHPotionAmount;
+					ultPot++;
+				}
+
+				if (healthPotion < maxHPotionAmount){
+				if (rand.nextInt(100) < healthPotionDrop) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					healthPotion++;
+					System.out.println("The " + enemy + " dropped a health potion");
+					System.out.println("You now have " + healthPotion + " health potions");
+
+				}
+				}
+
+				if(ultPot < maxUPotionAmount){
+				if (rand.nextInt(100) < ultPotDrop) {
+					System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+					ultPot++;
+					System.out.println("The " + enemy + " dropped an ultimate health potion");
+					System.out.println("You now have " + ultPot + " ultimate health potions");
+
+				}
+				}
+
+				if (rand.nextInt(100) < weaponDropChance){
+
+
+					while(true){
+						System.out.println("The " + enemy + " has dropped a weapon.");
+						int enemyWeaponDrop = rand.nextInt(100);
+
+
+						if (enemyWeaponDrop <= bronzeDrop){
+							weapon = weapons[bronze];
+							System.out.println("It is a " + weapon);
+							System.out.println("What would you like to do?");
+							System.out.println("[1] Take it  [2] Leave it");
+							String input = in.nextLine();
+
+							if(input.equals("1")){
+								System.out.println("You Take the " + weapon);
+								weaponDamage *= 0;
+								weaponDamage += bronzeDamage;
+								break;
+							}
+
+							else if(input.equals("2")){
+								System.out.println("You leave the weapon lying on the floor.");
+								break;
+							}
+
+							else{
+								System.out.println("Sorry wrong input.");
+							}
+						}
+
+
+						else if (enemyWeaponDrop >= lowIronDrop && enemyWeaponDrop <= highIronDrop){
+							weapon = weapons[iron];
+							System.out.println("It is a " + weapon);
+							System.out.println("What would you like to do?");
+							System.out.println("[1] Take it  [2] Leave it");
+							String input1 = in.nextLine();
+
+							if(input1.equals("1")){
+								System.out.println("You Take the " + weapon);
+								weaponDamage *= 0;
+								weaponDamage += ironDamage;
+								break;
+							}
+
+							else if(input1.equals("2")){
+								System.out.println("You leave the weapon lying on the floor.");
+								break;
+							}
+
+							else{
+								System.out.println("Sorry wrong input.");
+							}
+						}
+
+						else if (enemyWeaponDrop >= lowSteelDrop && enemyWeaponDrop <= highSteelDrop){
+							weapon = weapons[steel];
+							System.out.println("It is a " + weapon);
+							System.out.println("What would you like to do?");
+							System.out.println("[1] Take it  [2] Leave it");
+							String input2 = in.nextLine();
+
+							if(input2.equals("1")){
+								System.out.println("You Take the " + weapon);
+								weaponDamage *= 0;
+								weaponDamage += steelDamage;
+								break;
+							}
+
+							else if(input2.equals("2")){
+								System.out.println("You leave the weapon lying on the floor.");
+								break;
+							}
+
+							else{
+								System.out.println("Sorry wrong input.");
+							}
+
+						}
+
+						else if (enemyWeaponDrop >= diamondDrop){
+							weapon = weapons[diamond];
+							System.out.println("It is a " + weapon);
+							System.out.println("What would you like to do?");
+							System.out.println("[1] Take it  [2] Leave it");
+							String input3 = in.nextLine();
+
+							if(input3.equals("1")){
+								System.out.println("You Take the " + weapon);
+								weaponDamage *= 0;
+								weaponDamage += diamondDamage;
+								break;
+							}
+
+							else if(input3.equals("2")){
+								System.out.println("You leave the weapon lying on the floor.");
+								break;
+							}
+
+							else{
+								System.out.println("Sorry wrong input.");
+							}
+
+						}
+
+
+
+					}
+				}
+
+
+			}
+
+
+
+
+
+
+			else if (bruh == 1) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+			else if (bruh == 2) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+			else if (bruh == 3) {
+				System.out.println(enemy + " has appeared!");
+			}
+
+		}
+
+		System.out.println("Thanks for playing!");
+
+	}
+}
