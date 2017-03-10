@@ -9,73 +9,65 @@ public class Ch_3_17 {
 		Scanner input = new Scanner(System.in);
 
 		int max = 3;
-		int cpu;
-		int player;
+		int playerChoice;
+		int computerChoice;
 		boolean play = true;
-		int score = 0;
+		int computerScore  = 0;
+		int playerScore  = 0;
+		int a;
+		int b;
 
 		System.out.println("Let's play rock paper scsiors.");
 
 
 		while(play){
-			cpu = rand.nextInt(max);
+			computerChoice = rand.nextInt(max);
 			System.out.println("Enter \n\t[0] for rock \n\t[1] for paper \n\t[2] for scissors");
 			System.out.print("\t\nYou guess: ");
-			player = input.nextInt();
-			
-			if (player == -1){
-				break;
-			}
+			playerChoice = input.nextInt();
 
-			else{
-				if (player == cpu){
-					System.out.println("Draw!");
+
+			if (playerChoice >= 0 && playerChoice <= 2){
+
+				System.out.println("You chose: " + playerChoice);
+				System.out.println("Computer chose: " + computerChoice);
+				switch(10*playerChoice+computerChoice){
+
+				case 0: System.out.println("You Tied"); break;
+				case 1: System.out.println("You Lost"); computerScore ++; break;
+				case 2: System.out.println("You Won"); playerScore ++; break;
+				case 10: System.out.println("You Won"); playerScore ++; break;
+				case 11: System.out.println("You Tied"); break;
+				case 12: System.out.println("You Lost"); computerScore ++; break;
+				case 20: System.out.println("You Lost"); computerScore ++; break;
+				case 21: System.out.println("You Won"); playerScore ++; break;
+				case 22: System.out.println("You Tied"); break;
+
+				}
+				a = (playerScore - computerScore);
+				System.out.println(a);
+				if (a == 2 ){
+					System.out.println("You Won!");
+					break;
 				}
 
-				else if(player == 0){
-					System.out.println("cpu guessed: " + cpu);
-					System.out.println((cpu == 2) ? "You Win!" : "You Lose!" );
-					if(cpu == 2){
-						score ++;
-					}
-					
-					else {
-						score --;
-					}
-				}
-
-				else if(player == 1){
-					System.out.println("cpu guessed: " + cpu);
-					System.out.println((cpu == 0) ? "You Win!" : "You Lose!" );
-					if(cpu == 0){
-						score ++;
-					}
-					
-					else {
-						score --;
-					}
-				}
-
-				else if(player == 2){
-					System.out.println("cpu guessed: " + cpu);
-					System.out.println((cpu == 1) ? "You Win!" : "You Lose!" );
-					if(cpu == 1){
-						score ++;
-					}
-					
-					else {
-						score --;
-					}
-				}
-
-				else {
-					System.out.println("Sorry wrong number!");
+				if (a == -2 ){
+					System.out.println("You lost!");
+					break;
 				}
 			}
+
+
+			else {
+				System.out.println("Sorry wrong number!");
+			}
+
+
 		}
-		
-		System.out.println("Thanks for playing!" 
-						+ "\nYour score is " + score);
-		
+		System.out.println("Thanks For playing!");
+
+
 	}
+
+
 }

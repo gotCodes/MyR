@@ -1,0 +1,73 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class Ch_3_17 {
+
+	public static void main(String[] args) {
+
+		Random rand = new Random();
+		Scanner input = new Scanner(System.in);
+
+		int max = 3;
+		int playerChoice;
+		int computerChoice;
+		boolean play = true;
+		int computerScore  = 0;
+		int playerScore  = 0;
+		int a;
+		int b;
+
+		System.out.println("Let's play rock paper scsiors.");
+
+
+		while(play){
+			computerChoice = rand.nextInt(max);
+			System.out.println("Enter \n\t[0] for rock \n\t[1] for paper \n\t[2] for scissors");
+			System.out.print("\t\nYou guess: ");
+			playerChoice = input.nextInt();
+
+			a = (playerScore - computerScore);
+
+			if (playerChoice >= 1 && playerChoice <= 3){
+
+				System.out.println("You chose: " + playerChoice);
+				System.out.println("Computer chose: " + computerChoice);
+
+				switch(10*playerChoice+computerChoice){
+
+				case 0: System.out.println("You Tied"); break;
+				case 1: System.out.println("You Lost"); computerScore ++;
+				case 3: System.out.println("You Won"); playerScore ++;
+				case 10: System.out.println("You Won"); playerScore ++;
+				case 11: System.out.println("You Tied"); break;
+				case 12: System.out.println("You Lost"); computerScore ++;
+				case 20: System.out.println("You Lost"); computerScore ++;
+				case 21: System.out.println("You Won"); playerScore ++;
+				case 22: System.out.println("You Tied"); break;
+
+				}
+			}
+
+
+			else {
+				System.out.println("Sorry wrong number!");
+			}
+
+			if (a == 2 ){
+				System.out.println("You Won!");
+				break;
+			}
+
+			if (a == -2 ){
+				System.out.println("You lost!");
+				break;
+			}
+
+		}
+		System.out.println("Thanks For playing!");
+
+
+	}
+
+
+}
